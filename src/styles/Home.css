@@ -1,0 +1,185 @@
+
+.home-container {
+    text-align: center;
+    padding: 0px;
+  }
+  
+  .home-container h1 {
+    color: #800000; 
+    
+  }
+  
+  .buttons button {
+    background-color: #800000;
+    position: absolute;
+    cursor: pointer;
+    color: #f8ecd2;
+    font-weight: bold;
+    border-radius: 20rem;
+    width: 15rem;
+    height:2rem;
+    justify-content: center;
+    bottom: 10px;
+    right: 500px;
+   
+  }
+  
+  .buttons button:hover {
+   
+    background-color: #c0a173 !important;
+    color: #800000;
+  }
+ 
+  .user-dashboard-container {
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    
+  }
+  
+  .carousel-container {
+    max-width: 100%; 
+    height: 100vh; 
+    margin: 0 auto;
+    margin-top:-40px;
+    display: block;
+    justify-content: center;
+    margin-left:150px;
+    margin-right: 150px;
+  }
+ 
+  
+  .carousel-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-slide h3 {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #0050b3; 
+    background: #e6f7ff; 
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1;
+  }
+  
+  .carousel-slide img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .carousel-container img {
+    height: 430px;
+    width: 1000px;
+    
+  }
+  
+
+/* Responsive Styles */
+
+
+@media (max-width: 992px) {
+  .carousel-container {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .carousel-container img {
+    width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .carousel-container img {
+    width: 100%;
+    height: auto;
+  }
+  .buttons {
+    margin-top: 100px;
+  }
+  .buttons button {
+    position: absolute;
+    width: 12rem;
+    height: 2rem;
+    top:550px;
+    left: 280px;
+    
+  }
+}
+
+@media (max-width: 576px) {
+  .buttons {
+    margin-top: 15px;
+  }
+  .buttons button {
+    width: 10rem;
+    height: 2rem;
+  }
+  .carousel-slide h3 {
+    font-size: 1rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons button {
+    position: absolute;
+    width: 12rem;
+    height: 2rem;
+    top:320px;
+    left:90px;
+  }
+  .carousel-slide h3 {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+  }
+}
+@media (max-width: 430px) {
+  .buttons button {
+    position: absolute;
+    width: 12rem;
+    height: 2rem;
+    top:340px;
+    left:100px;
+  }
+  .carousel-slide h3 {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .buttons button {
+    position: absolute;
+    width: 12rem;
+    height: 2rem;
+    top:320px;
+    left:80px;
+  }
+  .carousel-slide h3 {
+    font-size: 0.8rem;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 320px) {
+  .buttons button {
+    position: absolute;
+    width: 12rem;
+    height: 2rem;
+    top:320px;
+    left:90px;
+  }
+  .carousel-slide h3 {
+    font-size: 0.7rem;
+    padding: 2px 4px;
+  }
+}

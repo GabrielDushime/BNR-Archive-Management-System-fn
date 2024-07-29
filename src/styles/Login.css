@@ -1,0 +1,66 @@
+/* Login.css */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-left: 800px;
+  margin-top: -100px;
+}
+.login-page{
+  display: flex;
+}
+.login-page img{
+  position: absolute;
+  left:0px;
+  width:800px;
+ height: 530px;
+  top:80px;
+  border-radius: 0px;
+}
+.login-form {
+  width: 400px;
+
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top:0px;
+  
+}
+
+.login-button {
+  width: 100%;
+  height: 40px;
+  background-color: #800000 !important;
+  color: #ffffff !important;
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #f8ecd2 !important;
+  color: #800000 !important;
+
+
+}
+
+.login-container h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+
+.login-form .ant-input,
+.login-form .ant-input-password {
+  transition: border-color 0.3s ease;
+}
+
+.login-form .ant-input:hover,
+.login-form .ant-input-password:hover {
+  border-color: #800000 !important;
+}

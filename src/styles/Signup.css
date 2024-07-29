@@ -1,0 +1,74 @@
+
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin-top:-30px;
+    margin-left: 100px;
+  
+
+ 
+  
+  }
+  
+  .signup-form {
+    width: 500px; 
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(128, 0, 0, 0.5); 
+    
+  }
+  
+  .signup-button {
+    width: 100%;
+    height: 40px;
+    background-color: #f8ecd2;
+    color: #800000;
+    font-weight: bold;
+    font-size: 20px;
+    border: none; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+  }
+  .signup-button {
+    width: 100%;
+    height: 40px;
+    background-color: #800000 !important; 
+    color: #ffffff !important;
+    font-weight: bold;
+    font-weight: bold;
+    font-size: 20px;
+    border: none; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+  
+  }
+  
+  .signup-button:hover {
+    background-color: #f8ecd2 !important; 
+    color: #800000 !important;
+  }
+  
+ 
+
+  
+  h1 {
+    color:#800000;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .signup-form .ant-input,
+  .signup-form .ant-input-Role,
+.signup-form .ant-input-password {
+  transition: border-color 0.3s ease;
+}
+
+.signup-form .ant-input:hover,
+.signup-form .ant-input-Role,
+.signup-form .ant-input-password:hover {
+  border-color: #800000 !important;
+}
