@@ -228,7 +228,7 @@ const UserDocumentsPage: React.FC = () => {
       });
      
       notification.success({ message: 'Document Added successfully' });
-     
+    
       setDocuments((prev) => [...prev, { ...values, docId: response.data.docId }]); 
       setIsModalVisible(false);
       setFileList([]);
@@ -236,6 +236,7 @@ const UserDocumentsPage: React.FC = () => {
       notification.error({ message: 'Failed to Add Document' });
     }
   };
+ 
 
   const handleFileChange = ({ fileList }: any) => setFileList(fileList);
 
