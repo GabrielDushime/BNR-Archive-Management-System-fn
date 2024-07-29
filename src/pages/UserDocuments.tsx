@@ -33,7 +33,7 @@ const UserDocumentsPage: React.FC = () => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
+  const [, setSelectedRowId] = useState<string | null>(null);
 
   const userRole = localStorage.getItem('role');
   const token = localStorage.getItem('token');

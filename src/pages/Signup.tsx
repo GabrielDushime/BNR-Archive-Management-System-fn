@@ -12,7 +12,6 @@ const { Option } = Select;
 const Signup: React.FC = () => {
   const [form] = Form.useForm(); 
   
-  const userRole = localStorage.getItem('role');
   const token = localStorage.getItem('token');
 
   const onFinish = async (values: any) => {
