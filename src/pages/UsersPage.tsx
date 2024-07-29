@@ -25,7 +25,6 @@ const UsersPage: React.FC = () => {
     const token = getTokenFromLocalStorage();
     if (token) {
       try {
-        const role = getRoleFromToken(token);
         fetchUsers(token);
       } catch (error) {
         console.error('Error decoding token:', error);
