@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, Popconfirm, Typography, notification } from 'antd';
 import axios from 'axios';
@@ -26,7 +25,6 @@ const UsersPage: React.FC = () => {
     const token = getTokenFromLocalStorage();
     if (token) {
       try {
-       
         const role = getRoleFromToken(token);
         fetchUsers(token);
       } catch (error) {
@@ -111,6 +109,7 @@ const UsersPage: React.FC = () => {
       title: 'ID',
       dataIndex: 'Id',
       key: 'Id',
+      render: (_: any, __: any, index: number) => index + 1,
     },
     {
       title: 'First Name',
@@ -156,15 +155,15 @@ const UsersPage: React.FC = () => {
     <div>
       <Title level={2}>Users Management</Title>
       <Table 
-      dataSource={users}
-       columns={columns}
+        dataSource={users}
+        columns={columns}
         rowKey="Id"
         scroll={{ x: 'max-content' }}
-        />
+      />
 
       {/* Edit User Modal */}
       <Modal
-        title="Edit User "
+        title="Edit User"
         visible={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={null}

@@ -243,7 +243,8 @@ const UserDocumentsPage: React.FC = () => {
     {
       title: 'ID',
       dataIndex: 'Id',
-      key: 'Id'
+      key: 'Id',
+      render: (_: any, __: any, index: number) => index + 1,
     },
     {
       title: 'Document Name',
@@ -260,20 +261,20 @@ const UserDocumentsPage: React.FC = () => {
       dataIndex: 'fileUrl',
       key: 'fileUrl'
     },
-    {
-      title: 'User Id',
-      dataIndex: 'userId',
-      key: 'userId'
-    },
+   
     {
       title: 'User Email',
       dataIndex: 'userEmail',
       key: 'userEmail'
     },
     {
-      title: 'Category',
+      title: 'Category Name',
       dataIndex: 'categoryId',
-      key: 'categoryId'
+      key: 'categoryId',
+      render: (categoryId: number) => {
+        const category = categories.find((cat) => cat.Id === categoryId);
+        return category ? category.categoryName : 'Unknown Category';
+      },
     },
     {
       title: 'Actions',

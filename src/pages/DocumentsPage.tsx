@@ -226,6 +226,7 @@ const DocumentsPage: React.FC = () => {
      
       notification.success({ message: 'Document Added successfully' });
      
+     
       setDocuments((prev) => [...prev, { ...values, docId: response.data.docId }]); 
       setIsModalVisible(false);
       setFileList([]);
@@ -240,7 +241,8 @@ const DocumentsPage: React.FC = () => {
     {
       title: 'ID',
       dataIndex: 'Id',
-      key: 'Id'
+      key: 'Id',
+      render: (_: any, __: any, index: number) => index + 1,
     },
     {
       title: 'Document Name',
@@ -257,20 +259,20 @@ const DocumentsPage: React.FC = () => {
       dataIndex: 'fileUrl',
       key: 'fileUrl'
     },
-    {
-      title: 'User Id',
-      dataIndex: 'userId',
-      key: 'userId'
-    },
+    
     {
       title: 'User Email',
       dataIndex: 'userEmail',
       key: 'userEmail'
     },
     {
-      title: 'Category',
+      title: 'Category Name',
       dataIndex: 'categoryId',
-      key: 'categoryId'
+      key: 'categoryId',
+      render: (categoryId: number) => {
+        const category = categories.find((cat) => cat.Id === categoryId);
+        return category ? category.categoryName : 'Unknown Category';
+      },
     },
     {
       title: 'Actions',

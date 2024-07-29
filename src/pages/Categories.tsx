@@ -125,6 +125,7 @@ const CategoriesPage: React.FC = () => {
       title: 'ID',
       dataIndex: 'Id',
       key: 'Id',
+      render: (_: any, __: any, index: number) => index + 1,
     },
     {
       title: 'Category Name',
@@ -137,14 +138,11 @@ const CategoriesPage: React.FC = () => {
       key: 'description',
     },
     {
-      title: 'Documents',
+      title: 'Documents Uploaded',
       dataIndex: 'docUpload',
       key: 'docUpload',
-      render: (docUpload: string[]) => (
-        <div>
-          {docUpload.length > 0 ? docUpload.join(', ') : 'No documents'}
-        </div>
-      ),
+      render: (docUpload: string[]) => docUpload.length,
+      
     },
     {
       title: 'Actions',
