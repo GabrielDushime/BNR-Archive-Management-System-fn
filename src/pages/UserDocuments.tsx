@@ -119,7 +119,7 @@ const UserDocumentsPage: React.FC = () => {
           setDocuments(response.data);
           setSelectedRowId(null);
         } catch (error) {
-          notification.error({ message: 'Failed to fetch documents' });
+          
         }
         return;
       }
@@ -274,7 +274,7 @@ const UserDocumentsPage: React.FC = () => {
       key: 'categoryId',
       render: (categoryId: number) => {
         const category = categories.find((cat) => cat.Id === categoryId);
-        return category ? category.categoryName : 'Unknown Category';
+        return category ? category.categoryName : '';
       },
     },
     {

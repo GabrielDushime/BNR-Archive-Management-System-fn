@@ -1,6 +1,6 @@
 // src/layouts/UserLayout.tsx
 import React, { ReactNode } from 'react';
-import UserSidebar from '../components/UserSidebar';
+import UserDocuments from '../pages/UserDocuments';
 
 interface UserLayoutProps {
   children: ReactNode;
@@ -9,8 +9,9 @@ interface UserLayoutProps {
 const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
   return (
     <div className="user-layout">
-      <UserSidebar />
-      <main className="main-content">{children}</main>
+    
+      <UserDocuments/>
+    
     </div>
   );
 };
