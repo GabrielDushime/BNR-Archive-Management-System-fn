@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import {
   DashboardOutlined,
-  UserOutlined,
-  AppstoreOutlined,
   FileOutlined,
-  PlusOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
 import Logout from './Logout';
