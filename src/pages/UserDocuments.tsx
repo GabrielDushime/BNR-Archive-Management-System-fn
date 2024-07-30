@@ -37,51 +37,49 @@ const UserDocumentsPage: React.FC = () => {
 
   const userRole = localStorage.getItem('role');
   const token = localStorage.getItem('token');
-
-  useEffect(() => {
-    const fetchDocuments = async () => {
-      try {
-        let response;
-        if (userRole === 'user') {
-          response = await axios.get('https://bnr-archive-management-system.onrender.com/document/user/documents', {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-        }
-
-        if (response && response.data) {
-          console.log('Fetched Documents:', response.data); 
-          setDocuments(response.data);
-        } else {
-          notification.error({ message: 'No document found' });
-        }
-      } catch (error) {
-       
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get('https://bnr-archive-management-system.onrender.com/categories/cats', {
+  const fetchDocuments = async () => {
+    try {
+      let response;
+      if (userRole === 'user') {
+        response = await axios.get('https://bnr-archive-management-system.onrender.com/document/user/documents', {
           headers: { Authorization: `Bearer ${token}` }
         });
-
-        if (response && response.data) {
-          console.log('Fetched Categories:', response.data); 
-          setCategories(response.data);
-        } else {
-          notification.error({ message: 'No categories found' });
-        }
-      } catch (error) {
-        notification.error({ message: 'Failed to fetch categories' });
       }
-    };
 
+      if (response && response.data) {
+        console.log('Fetched Documents:', response.data); 
+        setDocuments(response.data);
+      } else {
+        notification.error({ message: 'No document found' });
+      }
+    } catch (error) {
+     
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('https://bnr-archive-management-system.onrender.com/categories/cats', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (response && response.data) {
+        console.log('Fetched Categories:', response.data); 
+        setCategories(response.data);
+      } else {
+        notification.error({ message: 'No categories found' });
+      }
+    } catch (error) {
+      notification.error({ message: 'Failed to fetch categories' });
+    }
+  };
+
+  useEffect(() => {
     fetchDocuments();
     fetchCategories();
   }, [userRole, token]);
-
   const handleUpdate = async (values: any) => {
     if (!selectedDocument) {
       notification.error({ message: 'No document selected for update' });
@@ -207,38 +205,36 @@ const handleDownload = async (id: string) => {
 
   
 
-  const handleAddDocument = async (values: any) => {
-    const { categoryName } = values;
-    const category = categories.find((cat) => cat.categoryName === categoryName);
-    if (!category) {
-      notification.error({ message: 'Category not found' });
-      return;
-    }
+const handleAddDocument = async (values: any) => {
+  const { categoryName } = values;
+  const category = categories.find((cat) => cat.categoryName === categoryName);
+  if (!category) {
+    notification.error({ message: 'Category not found' });
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append('docName', values.docName);
-    formData.append('docDescription', values.docDescription);
-    formData.append('categoryId', category.Id.toString());
-    fileList.forEach(file => formData.append('files', file.originFileObj));
+  const formData = new FormData();
+  formData.append('docName', values.docName);
+  formData.append('docDescription', values.docDescription);
+  formData.append('categoryId', category.Id.toString());
+  fileList.forEach(file => formData.append('files', file.originFileObj));
 
-    try {
-      const response = await axios.post('https://bnr-archive-management-system.onrender.com/document/add/' + category.Id, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        }
-      });
-     
-      notification.success({ message: 'Document Added successfully' });
-    
-      setDocuments((prev) => [...prev, { ...values, docId: response.data.docId }]); 
-      setIsModalVisible(false);
-      setFileList([]);
-    } catch (error) {
-      notification.error({ message: 'Failed to Add Document' });
-    }
-  };
- 
+  try {
+    const response = await axios.post('https://bnr-archive-management-system.onrender.com/document/add/' + category.Id, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
+      }
+    });
+   
+    notification.success({ message: 'Document Added successfully' });
+    fetchDocuments();
+    setIsModalVisible(false);
+    setFileList([]);
+  } catch (error) {
+    notification.error({ message: 'Failed to Add Document' });
+  }
+};
 
   const handleFileChange = ({ fileList }: any) => setFileList(fileList);
 
