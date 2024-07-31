@@ -34,9 +34,6 @@ const Login: React.FC = () => {
   
       login(user.Role);
   
-      toast.success('Login successful!');
-  
-      // Redirect based on user role
       if (user.Role === 'admin') {
         navigate('/admin/dashboard');
       } else if (user.Role === 'user') {
@@ -44,7 +41,7 @@ const Login: React.FC = () => {
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setLoginError(error.response?.data?.message || 'Sign in failed');
+       
         toast.error(error.response?.data?.message || 'Sign in failed');
       } else {
         setLoginError('An unexpected error occurred');
@@ -81,7 +78,7 @@ const Login: React.FC = () => {
         </Form.Item>
       </Form>
       {loginError && <p className="error-message">{loginError}</p>}
-      <ToastContainer /> {/* Add ToastContainer to your component */}
+      <ToastContainer /> 
     </div>
     </div>
   );
