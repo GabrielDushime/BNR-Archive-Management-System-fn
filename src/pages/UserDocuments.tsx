@@ -199,7 +199,7 @@ const UserDocumentsPage: React.FC = () => {
     console.error('Failed to download the document:', error);
     if (axios.isAxiosError(error)) {
       console.error('Axios error details:', error.response?.data);
-      notification.error({ message: 'Failed to download the document. Please try again later.' });
+      notification.error({ message: 'Failed to download the document.' });
     } else {
       notification.error({ message: 'An unexpected error occurred while downloading the document.' });
     }
