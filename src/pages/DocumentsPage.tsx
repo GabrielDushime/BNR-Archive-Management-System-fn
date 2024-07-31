@@ -126,27 +126,31 @@ const DocumentsPage: React.FC = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
   
-      
       const contentType = response.headers['content-type'];
-      const extension = contentType.split('/')[1]; 
       const contentDisposition = response.headers['content-disposition'];
-      const fileNameMatch = contentDisposition?.match(/filename="(.+?)"/);
-      const fileName = fileNameMatch ? fileNameMatch[1] : `document_${id}.${extension}`;
+      const fileNameMatch = contentDisposition?.match(/filename="?([^"]+)"?/);
+      const fileName = fileNameMatch ? fileNameMatch[1] : `document_${id}.${contentType.split('/')[1]}`;
   
-     
       const url = window.URL.createObjectURL(new Blob([response.data], { type: contentType }));
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', fileName);
       document.body.appendChild(link);
       link.click();
-      
+  
       window.URL.revokeObjectURL(url);
       link.remove();
     } catch (error) {
-      notification.error({ message: 'Failed to download the document' });
+      console.error('Failed to download the document:', error);
+      if (axios.isAxiosError(error)) {
+        console.error('Axios error details:', error.response?.data);
+        notification.error({ message: 'Failed to download the document' });
+      } else {
+        notification.error({ message: 'An unexpected error occurred while downloading the document.' });
+      }
     }
   };
+  
   
 
   useEffect(() => {

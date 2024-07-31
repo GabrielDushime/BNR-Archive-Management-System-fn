@@ -173,7 +173,8 @@ const UserDocumentsPage: React.FC = () => {
       notification.error({ message: 'Failed to delete the document' });
     }
   };
-const handleDownload = async (id: string) => {
+
+ const handleDownload = async (id: string) => {
   try {
     const response = await axios.get(`https://bnr-archive-management-system.onrender.com/document/download/${id}`, {
       responseType: 'blob',
@@ -182,7 +183,7 @@ const handleDownload = async (id: string) => {
 
     const contentType = response.headers['content-type'];
     const contentDisposition = response.headers['content-disposition'];
-    const fileNameMatch = contentDisposition?.match(/filename="(.+?)"/);
+    const fileNameMatch = contentDisposition?.match(/filename="?([^"]+)"?/);
     const fileName = fileNameMatch ? fileNameMatch[1] : `document_${id}.${contentType.split('/')[1]}`;
 
     const url = window.URL.createObjectURL(new Blob([response.data], { type: contentType }));
@@ -205,6 +206,7 @@ const handleDownload = async (id: string) => {
   }
 };
 
+  
   
 
 const handleAddDocument = async (values: any) => {
