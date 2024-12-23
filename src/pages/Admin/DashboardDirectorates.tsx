@@ -1,0 +1,95 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import React, { useEffect, useState } from 'react';
+import { Card, Row, Col, Spin, message } from 'antd';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+interface Directorate {
+  Id: string; 
+  directorateName: string;
+  description?: string;
+  departmentsCount?: number;
+}
+
+const DashboardDirectoratesPage: React.FC = () => {
+  const [directorates, setDirectorates] = useState<Directorate[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const fetchDirectorates = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/directorates/directorates', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const directoratesData = response.data;
+        
+        const directoratesWithDepartments = await Promise.all(
+          directoratesData.map(async (directorate: Directorate) => {
+            try {
+              const departmentResponse = await axios.get(
+                `http://localhost:8000/departments/directorate/departments/${directorate.Id}`,
+                {
+                  headers: { Authorization: `Bearer ${token}` },
+                }
+              );
+              return {
+                ...directorate,
+                departmentsCount: departmentResponse.data.length,
+              };
+            } catch (error) {
+              console.error(`Failed to fetch departments for directorate ${directorate.Id}:`, error);
+              return {
+                ...directorate,
+                departmentsCount: 0,
+              };
+            }
+          })
+        );
+
+        setDirectorates(directoratesWithDepartments);
+      } catch (error) {
+        console.error('Failed to fetch directorates:', error);
+        message.error('Failed to fetch directorates');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDirectorates();
+  }, [token]);
+
+  return (
+    <div className="directorates-page">
+      <h1 className="text-center text-3xl font-bold mb-6">Directorates</h1>
+      {loading ? (
+        <Spin size="large" />
+      ) : (
+        <Row gutter={[16, 16]}>
+          {directorates.map((directorate) => (
+            <Col key={directorate.Id} span={8}>
+              <Card
+                title={directorate.directorateName}
+                hoverable
+                style={{ backgroundColor: '#753918', color: '#AB892C' }}
+              >
+                <p>Total Number of Departments: {directorate.departmentsCount}</p>
+                {directorate.description && <p>Description: {directorate.description}</p>}
+                <Link
+                 to={`/departments/${directorate.Id}`}
+                 style={{ color: '#e6f7ff', textDecoration: 'none', fontWeight:'bold' }} 
+                >
+                 View Departments
+               </Link>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
+    </div>
+  );
+};
+
+export default DashboardDirectoratesPage;

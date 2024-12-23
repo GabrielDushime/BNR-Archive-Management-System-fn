@@ -1,26 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
+
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, notification, Typography, Popconfirm } from 'antd';
-import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-interface Category {
+interface Directorate {
   Id: string;
-  categoryName: string;
+  directorateName: string;
   description: string;
-  docUpload: string[]; 
+ 
 }
+
 
 const { Title } = Typography;
 
-const CategoriesPage: React.FC = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+const SuperAdminDirectoratesPage: React.FC = () => {
+  const [directorates, setDirectorates] = useState<Directorate[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-  const [isCreateModalVisible, setIsCreateModalVisible] = useState(false); 
+  const [currentDirectorate, setCurrentDirectorate] = useState<Directorate | null>(null);
+  const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [userRole, setUserRole] = useState<string | null>(null);
-  const [modalMode, setModalMode] = useState<'view' | 'edit' | 'create'>('view'); 
+  const [modalMode, setModalMode] = useState<'view' | 'edit' | 'create'>('view');
 
   useEffect(() => {
     const role = localStorage.getItem('role');
@@ -28,38 +31,38 @@ const CategoriesPage: React.FC = () => {
 
     setUserRole(role);
 
-    if (role === 'admin') {
-      fetchCategories(token);
+    if (role === 'admin' || role === 'super-admin') {
+      fetchDirectorates(token);
     } else {
       notification.error({ message: 'Unauthorized access' });
     }
   }, []);
 
-  const fetchCategories = async (token: string | null) => {
+  const fetchDirectorates = async (token: string | null) => {
     try {
-      const response = await axios.get('https://bnr-archive-management-system.onrender.com/categories/cats', {
+      const response = await axios.get('http://localhost:8000/directorates/directorates', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setCategories(response.data);
+      setDirectorates(response.data);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 403) {
         notification.error({ message: 'Access forbidden. You do not have the required permissions.' });
       } else {
-        notification.error({ message: 'Failed to fetch categories' });
+        notification.error({ message: 'Failed to fetch directorates' });
       }
     }
   };
 
-  const handleView = (category: Category) => {
-    setCurrentCategory(category);
-    form.setFieldsValue(category);
+  const handleView = (directorate: Directorate) => {
+    setCurrentDirectorate(directorate);
+    form.setFieldsValue(directorate);
     setModalMode('view');
     setIsModalVisible(true);
   };
 
-  const handleEdit = (category: Category) => {
-    setCurrentCategory(category);
-    form.setFieldsValue(category);
+  const handleEdit = (directorate: Directorate) => {
+    setCurrentDirectorate(directorate);
+    form.setFieldsValue(directorate);
     setModalMode('edit');
     setIsModalVisible(true);
   };
@@ -67,16 +70,16 @@ const CategoriesPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`https://bnr-archive-management-system.onrender.com/categories/delete/cat/${id}`, {
+      await axios.delete(`http://localhost:8000/directorates/delete/directorate/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      notification.success({ message: 'Category deleted successfully' });
-      fetchCategories(token);
+      notification.success({ message: 'Directorate deleted successfully' });
+      fetchDirectorates(token);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 403) {
         notification.error({ message: 'Access forbidden. You do not have the required permissions.' });
       } else {
-        notification.error({ message: 'Failed to delete category' });
+        notification.error({ message: 'Failed to delete directorate' });
       }
     }
   };
@@ -85,39 +88,39 @@ const CategoriesPage: React.FC = () => {
     const token = localStorage.getItem('token');
     try {
       const values = await form.validateFields();
-      await axios.post('https://bnr-archive-management-system.onrender.com/categories/create', values, {
+      await axios.post('http://localhost:8000/directorates/create', values, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      notification.success({ message: 'Category created successfully' });
-      fetchCategories(token);
+      notification.success({ message: 'Directorate created successfully' });
+      fetchDirectorates(token);
       setIsCreateModalVisible(false);
     } catch (error) {
-      notification.error({ message: 'Failed to create category' });
+      notification.error({ message: 'Failed to create directorate' });
     }
   };
 
   const handleOk = async () => {
     const token = localStorage.getItem('token');
     try {
-      if (modalMode === 'edit' && currentCategory) {
+      if (modalMode === 'edit' && currentDirectorate) {
         const values = await form.validateFields();
-        await axios.put(`https://bnr-archive-management-system.onrender.com/categories/update/cat/${currentCategory.Id}`, values, {
+        await axios.put(`http://localhost:8000/directorates/update/directorate/${currentDirectorate.Id}`, values, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        notification.success({ message: 'Category updated successfully' });
-        fetchCategories(token);
+        notification.success({ message: 'Directorate updated successfully' });
+        fetchDirectorates(token);
         setIsModalVisible(false);
       } else {
         setIsModalVisible(false);
       }
     } catch (error) {
-      notification.error({ message: 'Failed to update category' });
+      notification.error({ message: 'Failed to update directorate' });
     }
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setIsCreateModalVisible(false); 
+    setIsCreateModalVisible(false);
   };
 
   const columns = [
@@ -128,26 +131,20 @@ const CategoriesPage: React.FC = () => {
       render: (_: any, __: any, index: number) => index + 1,
     },
     {
-      title: 'Category Name',
-      dataIndex: 'categoryName',
-      key: 'categoryName',
+      title: 'Directorate Name',
+      dataIndex: 'directorateName',
+      key: 'directorateName',
     },
     {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
     },
-    {
-      title: 'Documents Uploaded',
-      dataIndex: 'docUpload',
-      key: 'docUpload',
-      render: (docUpload: string[]) => docUpload.length,
-      
-    },
+   
     {
       title: 'Actions',
       key: 'actions',
-      render: (text: any, record: Category) => (
+      render: (text: any, record: Directorate) => (
         <span>
           <Button icon={<EyeOutlined />} onClick={() => handleView(record)} />
           {userRole === 'admin' && (
@@ -158,7 +155,7 @@ const CategoriesPage: React.FC = () => {
                 style={{ margin: '0 8px' }}
               />
               <Popconfirm
-                title="Are you sure to delete this category?"
+                title="Are you sure to delete this directorate?"
                 onConfirm={() => handleDelete(record.Id)}
                 okText="Yes"
                 cancelText="No"
@@ -174,7 +171,7 @@ const CategoriesPage: React.FC = () => {
 
   return (
     <div>
-        {userRole === 'admin' && (
+      {userRole === 'admin' && (
         <Button 
           type="primary"
           icon={<PlusOutlined />}
@@ -183,27 +180,34 @@ const CategoriesPage: React.FC = () => {
             setModalMode('create'); 
             form.resetFields();
           }}
-          style={{ marginBottom: '16px',float:'right', backgroundColor:'#800000' }}
+          style={{ marginBottom: '16px', float: 'right', backgroundColor: '#753918' }}
         >
-          Add Category
+          Add Directorate
         </Button>
       )}
-      <Title level={2}>Categories Management</Title>
-     
-      <Table columns={columns} dataSource={categories} rowKey="Id" scroll={{ x: 'max-content' }} />
+      <Title level={2}>Directorates Management</Title>
+      <Table columns={columns} dataSource={directorates} rowKey="Id" scroll={{ x: 'max-content' }} />
       <Modal
-        title={modalMode === 'edit' ? 'Edit Category' : modalMode === 'create' ? 'Create Category' : 'View Category'}
+        title={modalMode === 'edit' ? 'Edit Directorate' : modalMode === 'create' ? 'Create Directorate' : 'View Directorate'}
         visible={isModalVisible || isCreateModalVisible} 
         onOk={modalMode === 'create' ? handleCreate : handleOk}
+        
         onCancel={handleCancel}
         okText={modalMode === 'edit' ? 'Save' : modalMode === 'create' ? 'Create' : 'Close'}
         cancelText="Cancel"
+        okButtonProps={{
+          style: { backgroundColor: '#753918' },
+        }}
+        cancelButtonProps={{
+          style: { backgroundColor: '#f0f0f0', borderColor: '#d9d9d9', color: '#000' }, 
+        }}
+
       >
         <Form form={form} layout="vertical">
           <Form.Item
-            name="categoryName"
-            label="Category Name"
-            rules={[{ required: true, message: 'Please input the category name!' }]}
+            name="directorateName"
+            label="Directorate Name"
+            rules={[{ required: true, message: 'Please input the directorate name!' }]}
           >
             <Input />
           </Form.Item>
@@ -214,12 +218,10 @@ const CategoriesPage: React.FC = () => {
           >
             <Input.TextArea />
           </Form.Item>
-         
         </Form>
       </Modal>
-    
     </div>
   );
 };
 
-export default CategoriesPage;
+export default SuperAdminDirectoratesPage;

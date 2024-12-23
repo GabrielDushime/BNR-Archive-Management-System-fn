@@ -1,18 +1,13 @@
-
-
 .signup-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin-top:-30px;
-    margin-left: 100px;
-  
-
- 
-  
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; 
+  margin: 0 auto; 
+  padding: 40px 0; 
+  margin-top: -50px;
+}
   
   .signup-form {
     width: 500px; 
@@ -24,10 +19,10 @@
   }
   
   .signup-button {
-    width: 100%;
+    width: 100% !important;
     height: 40px;
     background-color: #f8ecd2;
-    color: #800000;
+    color: #753918;
     font-weight: bold;
     font-size: 20px;
     border: none; 
@@ -37,7 +32,7 @@
   .signup-button {
     width: 100%;
     height: 40px;
-    background-color: #800000 !important; 
+    background-color: #753918 !important; 
     color: #ffffff !important;
     font-weight: bold;
     font-weight: bold;
@@ -49,15 +44,15 @@
   }
   
   .signup-button:hover {
-    background-color: #f8ecd2 !important; 
-    color: #800000 !important;
+    background-color: #eedc82 !important;
+    color: #753918 !important;
   }
   
  
 
   
   h1 {
-    color:#800000;
+    color:#753918;
     font-weight: bold;
     font-size: 20px;
   }
@@ -70,5 +65,5 @@
 .signup-form .ant-input:hover,
 .signup-form .ant-input-Role,
 .signup-form .ant-input-password:hover {
-  border-color: #800000 !important;
+  border-color: #753918 !important;
 }

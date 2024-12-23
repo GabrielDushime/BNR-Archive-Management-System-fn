@@ -1,9 +1,10 @@
 // src/components/ProtectedRoute.tsx
 import React, { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import AdminLayout from '../layouts/AdminLayout';
-import UserLayout from '../layouts/UserLayout';
+import { useAuth } from '../../context/AuthContext';
+import AdminLayout from '../../layouts/AdminLayout';
+import UserLayout from '../../layouts/UserLayout';
+import SuperAdminLayout from '../../layouts/SuperAdminLayout';
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -28,6 +29,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
 
   if (role === 'user') {
     return <UserLayout>{children}</UserLayout>;
+  }
+  if (role === 'super-admin') {
+    return <SuperAdminLayout>{children}</SuperAdminLayout>;
   }
 
   return null; 

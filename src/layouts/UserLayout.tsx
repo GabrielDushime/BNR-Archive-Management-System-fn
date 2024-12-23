@@ -1,6 +1,6 @@
 // src/layouts/UserLayout.tsx
 import React, { ReactNode } from 'react';
-import UserSidebar from '../components/UserSidebar';
+import UserSidebar from '../components/User components/UserSidebar';
 
 interface UserLayoutProps {
   children: ReactNode;

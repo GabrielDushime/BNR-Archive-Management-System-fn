@@ -5,9 +5,10 @@ import {
   DashboardOutlined,
   FileOutlined,
   LogoutOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
-import Logout from './Logout';
-import '../styles/Sidebar.css';
+import Logout from '../Logout';
+import '../../styles/AdminStyles/Sidebar.css';
 
 const AdminSidebar: React.FC = () => {
   return (
@@ -22,10 +23,17 @@ const AdminSidebar: React.FC = () => {
          <Menu.Item key="/user/dashboard" icon={<DashboardOutlined />} className="menu-item">
           <Link to="/user/dashboard">Dashboard</Link>
         
+        
         </Menu.Item>
+
+       
+
         <Menu.Item key="/user/documents" icon={<FileOutlined />} className="menu-item">
           <Link to="/user/UserDocuments">Documents</Link>
         </Menu.Item>
+
+       
+
         <Menu.Item key="logout" icon={<LogoutOutlined />} className="menu-item logout-item">
           <Logout />
         </Menu.Item>

@@ -1,0 +1,35 @@
+
+  
+
+  
+  .custom-icon:hover {
+    color: #753918 !important;
+  }
+
+  
+
+  .search-bar2 :hover{
+    border-color: #753918 !important;
+  }
+  .search-bar2{
+    position: absolute;
+    right: 100px !important;
+    float: right;
+    margin-top:0px;
+    width: 240px;
+    
+   
+  }
+  .search-bar2:focus {
+    border-color: #753918!important;
+    outline: none; 
+  }
+  .search-bar1{
+    position: absolute;
+    right: 300px !important;
+    float: right;
+    margin-top:0px;
+    width: 300px;
+    
+   
+  }

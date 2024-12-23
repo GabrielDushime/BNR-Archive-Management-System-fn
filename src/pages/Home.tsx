@@ -1,6 +1,8 @@
-// src/pages/Home.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+
 import React from 'react';
-import '../styles/Home.css'; 
+import '../styles/AdminStyles/Home.css'; 
 import { Link } from 'react-router-dom';
 import Carousel from 'antd/es/carousel';
 

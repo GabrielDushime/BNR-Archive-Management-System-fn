@@ -1,0 +1,16 @@
+.departments-page {
+    padding: 20px;
+  }
+  
+  .departments-page h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .ant-input:hover,
+  .ant-input-Role,
+  .department:hover {
+    border-color: #753918 !important;
+  }
+
+
+  

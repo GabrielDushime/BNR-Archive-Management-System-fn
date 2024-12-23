@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, Form, Input, Popconfirm, Typography, notification } from 'antd';
+import { Table, Button, Modal, Form, Input, Select, Popconfirm, Typography, notification, Spin } from 'antd';
 import axios from 'axios';
 import { ColumnsType } from 'antd/es/table';
-import { getTokenFromLocalStorage, getRoleFromToken } from '../utils/auth';
+import { getTokenFromLocalStorage } from '../../utils/auth';
 
 interface User {
   Id: string;
@@ -11,6 +12,12 @@ interface User {
   lastName: string;
   email: string;
   Role: string;
+  directorateIds?: string[];
+}
+
+interface Directorate {
+  Id: string;
+  directorateName: string;
 }
 
 const { Title } = Typography;
@@ -21,12 +28,16 @@ const UsersPage: React.FC = () => {
   const [viewingUser, setViewingUser] = useState<User | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+  const [directorates, setDirectorates] = useState<Directorate[]>([]);
+  const [loading, setLoading] = useState(false); 
+  const [form] = Form.useForm();
 
   useEffect(() => {
     const token = getTokenFromLocalStorage();
     if (token) {
       try {
         fetchUsers(token);
+        fetchDirectorates(token);
       } catch (error) {
         console.error('Error decoding token:', error);
         notification.error({ message: 'Failed to decode token' });
@@ -36,7 +47,7 @@ const UsersPage: React.FC = () => {
 
   const fetchUsers = async (token: string) => {
     try {
-      const response = await axios.get('https://bnr-archive-management-system.onrender.com/user/users', {
+      const response = await axios.get('http://localhost:8000/user/users', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,8 +59,29 @@ const UsersPage: React.FC = () => {
     }
   };
 
+  const fetchDirectorates = async (token: string) => {
+    try {
+      const response = await axios.get('http://localhost:8000/directorates/directorates', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDirectorates(response.data);
+    } catch (error) {
+      console.error('Error fetching directorates:', error);
+      notification.error({ message: 'Failed to fetch directorates' });
+    }
+  };
+
   const handleEdit = (user: User) => {
     setEditingUser(user);
+    form.setFieldsValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      Role: user.Role,
+      directorates: user.directorateIds || [],
+    });
     setIsModalVisible(true);
   };
 
@@ -66,7 +98,7 @@ const UsersPage: React.FC = () => {
     }
 
     try {
-      await axios.delete(`https://bnr-archive-management-system.onrender.com/user/Delete/user/${userId}`, {
+      await axios.delete(`http://localhost:8000/user/Delete/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -80,26 +112,36 @@ const UsersPage: React.FC = () => {
   };
 
   const handleSave = async (values: any) => {
+    setLoading(true); 
     if (editingUser) {
       const token = getTokenFromLocalStorage();
       if (!token) {
         console.error('No token found.');
+        setLoading(false); 
         return;
       }
 
+      const payload = {
+        ...values,
+        directorateIds: values.directorates, 
+      };
+
       try {
-        await axios.put(`https://bnr-archive-management-system.onrender.com/user/update/user/${editingUser.Id}`, values, {
+        const response = await axios.put(`http://localhost:8000/user/update/user/${editingUser.Id}`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log('Update response:', response.data); 
         notification.success({ message: 'User updated successfully' });
         setIsModalVisible(false);
         setEditingUser(null);
         fetchUsers(token);
-      } catch (error) {
-        console.error('Error updating user:', error);
+      } catch (error: any) {
+        console.error('Error updating user:', error.response?.data || error.message);
         notification.error({ message: 'Failed to update user' });
+      } finally {
+        setLoading(false); 
       }
     }
   };
@@ -130,6 +172,14 @@ const UsersPage: React.FC = () => {
       title: 'Role',
       dataIndex: 'Role',
       key: 'Role',
+    },
+    {
+      title: 'Directorates',
+      dataIndex: 'directorates',
+      key: 'directorates',
+      render: (directorates: Directorate[]) => (
+        <span>{directorates.map(d => d.directorateName).join(', ')}</span>
+      ),
     },
     {
       title: 'Actions',
@@ -168,29 +218,41 @@ const UsersPage: React.FC = () => {
         onCancel={() => setIsModalVisible(false)}
         footer={null}
       >
-        <Form
-          layout="vertical"
-          initialValues={editingUser || {}}
-          onFinish={handleSave}
-        >
-          <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Please input the first name!' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="lastName" label="Last Name" rules={[{ required: true, message: 'Please input the last name!' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Please input a valid email!' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="Role" label="Role" rules={[{ required: true, message: 'Please input the role!' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Save
-            </Button>
-          </Form.Item>
-        </Form>
+        <Spin spinning={loading}> 
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={handleSave}
+          >
+            <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Please input the first name!' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="lastName" label="Last Name" rules={[{ required: true, message: 'Please input the last name!' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Please input a valid email!' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="Role" label="Role" rules={[{ required: true, message: 'Please input the role!' }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="directorates" label="Directorates">
+              <Select
+                mode="multiple"
+                placeholder="Select directorates"
+                options={directorates.map(d => ({
+                  value: d.Id,
+                  label: d.directorateName,
+                }))}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" loading={loading}> 
+                Save
+              </Button>
+            </Form.Item>
+          </Form>
+        </Spin>
       </Modal>
 
       {/* View User Modal */}

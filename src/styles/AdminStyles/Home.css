@@ -4,16 +4,12 @@
     padding: 0px;
   }
   
-  .home-container h1 {
-    color: #800000; 
-    
-  }
-  
+
   .buttons button {
-    background-color: #800000;
+    background-color: #753918;
     position: absolute;
     cursor: pointer;
-    color: #f8ecd2;
+    color: #eedc82;
     font-weight: bold;
     border-radius: 20rem;
     width: 15rem;
@@ -26,8 +22,8 @@
   
   .buttons button:hover {
    
-    background-color: #c0a173 !important;
-    color: #800000;
+    background-color: #eedc82 !important;
+    color: #753918;
   }
  
   .user-dashboard-container {

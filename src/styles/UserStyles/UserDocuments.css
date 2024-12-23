@@ -1,0 +1,28 @@
+
+
+  .search-bar :hover{
+    border-color: #753918 !important;
+  }
+  .search-bar{
+    position: absolute;
+    right:200px !important;
+    float: right;
+    margin-top:0px;
+    width: 190px;
+    
+   
+  }
+  .search-bar:focus {
+    border-color: #753918!important;
+    outline: none; 
+  }
+
+  .search-bar1{
+    position: absolute;
+    right:400px !important;
+    float: right;
+    margin-top:0px;
+    width: 250px;
+    
+   
+  }
