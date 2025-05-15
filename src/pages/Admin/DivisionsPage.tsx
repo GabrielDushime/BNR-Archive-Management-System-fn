@@ -46,7 +46,7 @@ const DivisionsPage: React.FC = () => {
 
   const fetchDivisions = async (token: string | null) => {
     try {
-      const response = await axiosInstance .get('/divisions/divisions', {
+      const response = await axiosInstance.get('/divisions/divisions', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDivisions(response.data);
@@ -61,7 +61,7 @@ const DivisionsPage: React.FC = () => {
 
   const fetchDepartments = async (token: string | null) => {
     try {
-      const response = await axiosInstance .get('/departments/departments', {
+      const response = await axiosInstance.get('/departments/departments', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDepartments(response.data);
@@ -87,7 +87,7 @@ const DivisionsPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      await axiosInstance .delete(`/divisions/delete/division/${id}`, {
+      await axiosInstance.delete(`/divisions/delete/division/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       notification.success({ message: 'Division deleted successfully' });
@@ -118,7 +118,7 @@ const DivisionsPage: React.FC = () => {
         return;
       }
 
-      await axiosInstance .post(
+      await axiosInstance.post(
         `/divisions/create/${selectedDepartment.Id}`,
         { divisionName },
         {
@@ -146,7 +146,7 @@ const DivisionsPage: React.FC = () => {
     try {
       if (modalMode === 'edit' && currentDivision) {
         const values = await form.validateFields();
-        await axiosInstance .put(`/divisions/update/division/${currentDivision.Id}`, values, {
+        await axiosInstance.put(`/divisions/update/division/${currentDivision.Id}`, values, {
           headers: { Authorization: `Bearer ${token}` }
         });
         notification.success({ message: 'Division updated successfully' });
