@@ -1,11 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Button, Drawer } from 'antd';
 import {
   DashboardOutlined,
+  UserOutlined,
   FileOutlined,
+  PlusOutlined,
   LogoutOutlined,
+  ApartmentOutlined,
+  TeamOutlined,
+  BranchesOutlined,
+  AppstoreAddOutlined,
   MenuOutlined,
 } from '@ant-design/icons';
 import Logout from '../Logout';
@@ -50,13 +55,31 @@ const AdminSidebar: React.FC = () => {
           mode="inline"
           theme="light"
           style={{ borderRight: 0 }}
-          defaultSelectedKeys={['/user/dashboard']}
+          defaultSelectedKeys={['/admin/dashboard']}
         >
-          <Menu.Item key="/user/dashboard" icon={<DashboardOutlined />} className="menu-item">
-            <Link to="/user/dashboard">Dashboard</Link>
+          <Menu.Item key="/admin/dashboard" icon={<DashboardOutlined />} className="menu-item">
+            <Link to="/admin/dashboard">Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key="/user/documents" icon={<FileOutlined />} className="menu-item">
-            <Link to="/user/UserDocuments">Documents</Link>
+          <Menu.Item key="/users" icon={<UserOutlined />} className="menu-item">
+            <Link to="/admin/users">Users</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/directorates" icon={<ApartmentOutlined />} className="menu-item">
+            <Link to="/admin/directorates">Directorates</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/departments" icon={<TeamOutlined />} className="menu-item">
+            <Link to="/admin/departments">Departments</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/divisions" icon={<BranchesOutlined />} className="menu-item">
+            <Link to="/admin/divisions">Divisions</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/types" icon={<AppstoreAddOutlined />} className="menu-item">
+            <Link to="/admin/types">Types</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/documents" icon={<FileOutlined />} className="menu-item">
+            <Link to="/admin/documents">Documents</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/signup" icon={<PlusOutlined />} className="menu-item">
+            <Link to="/admin/signup">Create Account</Link>
           </Menu.Item>
           <Menu.Item key="logout" icon={<LogoutOutlined />} className="menu-item logout-item">
             <Logout />
@@ -76,13 +99,31 @@ const AdminSidebar: React.FC = () => {
           mode="inline"
           theme="light"
           style={{ borderRight: 0 }}
-          defaultSelectedKeys={['/user/dashboard']}
+          defaultSelectedKeys={['/admin/dashboard']}
         >
-          <Menu.Item key="/user/dashboard" icon={<DashboardOutlined />} className="menu-item">
-            <Link to="/user/dashboard" onClick={onClose}>Dashboard</Link>
+          <Menu.Item key="/admin/dashboard" icon={<DashboardOutlined />} className="menu-item">
+            <Link to="/admin/dashboard" onClick={onClose}>Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key="/user/documents" icon={<FileOutlined />} className="menu-item">
-            <Link to="/user/UserDocuments" onClick={onClose}>Documents</Link>
+          <Menu.Item key="/users" icon={<UserOutlined />} className="menu-item">
+            <Link to="/admin/users" onClick={onClose}>Users</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/directorates" icon={<ApartmentOutlined />} className="menu-item">
+            <Link to="/admin/directorates" onClick={onClose}>Directorates</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/departments" icon={<TeamOutlined />} className="menu-item">
+            <Link to="/admin/departments" onClick={onClose}>Departments</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/divisions" icon={<BranchesOutlined />} className="menu-item">
+            <Link to="/admin/divisions" onClick={onClose}>Divisions</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/types" icon={<AppstoreAddOutlined />} className="menu-item">
+            <Link to="/admin/types" onClick={onClose}>Types</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/documents" icon={<FileOutlined />} className="menu-item">
+            <Link to="/admin/documents" onClick={onClose}>Documents</Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/signup" icon={<PlusOutlined />} className="menu-item">
+            <Link to="/admin/signup" onClick={onClose}>Create Account</Link>
           </Menu.Item>
           <Menu.Item key="logout" icon={<LogoutOutlined />} className="menu-item logout-item">
             <Logout />
