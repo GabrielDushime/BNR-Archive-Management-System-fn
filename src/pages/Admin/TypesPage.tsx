@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, notification, Typography, Popconfirm, Select } from 'antd';
 import { EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 
 interface Type {
   Id: string;
@@ -47,7 +48,7 @@ const TypesPage: React.FC = () => {
 
   const fetchTypes = async (token: string | null) => {
     try {
-      const response = await axios.get(`http://localhost:8000/types/types`, {
+      const response = await axiosInstance.get(`/types/types`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTypes(response.data);
@@ -62,7 +63,7 @@ const TypesPage: React.FC = () => {
 
   const fetchDivisions = async (token: string | null) => {
     try {
-      const response = await axios.get('http://localhost:8000/divisions/divisions', {
+      const response = await axiosInstance.get('/divisions/divisions', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDivisions(response.data);
@@ -88,7 +89,7 @@ const TypesPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8000/types/delete/type/${id}`, {
+      await axiosInstance.delete(`/types/delete/type/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       notification.success({ message: 'Type deleted successfully' });
@@ -113,8 +114,8 @@ const TypesPage: React.FC = () => {
         return;
       }
 
-      await axios.post(
-        `http://localhost:8000/types/create/${divisionId}`,
+      await axiosInstance.post(
+        `/types/create/${divisionId}`,
         { typeName },
         {
           headers: {
@@ -141,7 +142,7 @@ const TypesPage: React.FC = () => {
     try {
       if (modalMode === 'edit' && currentType) {
         const values = await form.validateFields();
-        await axios.put(`http://localhost:8000/types/update/division/${currentType.Id}`, values, {
+        await axiosInstance.put(`/types/update/division/${currentType.Id}`, values, {
           headers: { Authorization: `Bearer ${token}` }
         });
         notification.success({ message: 'Type updated successfully' });

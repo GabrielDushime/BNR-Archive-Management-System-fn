@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosConfig'; 
 import { Link } from 'react-router-dom';
 
 interface Directorate {
@@ -20,7 +20,7 @@ const DashboardDirectoratesPage: React.FC = () => {
   useEffect(() => {
     const fetchDirectorates = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/directorates/directorates', {
+        const response = await axiosInstance.get('/directorates/directorates', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -29,8 +29,8 @@ const DashboardDirectoratesPage: React.FC = () => {
         const directoratesWithDepartments = await Promise.all(
           directoratesData.map(async (directorate: Directorate) => {
             try {
-              const departmentResponse = await axios.get(
-                `http://localhost:8000/departments/directorate/departments/${directorate.Id}`,
+              const departmentResponse = await axiosInstance.get(
+                `/departments/directorate/departments/${directorate.Id}`,
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }

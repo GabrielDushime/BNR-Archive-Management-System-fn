@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, notification, Typography, Popconfirm, Select } from 'antd';
 import {  EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 
 interface Department {
   Id: string;
@@ -46,7 +47,7 @@ const SuperAdminDepartmentsPage: React.FC = () => {
 
   const fetchDepartments = async (token: string | null) => {
     try {
-      const response = await axios.get('http://localhost:8000/departments/departments', {
+      const response = await axiosInstance.get('/departments/departments', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDepartments(response.data);
@@ -61,7 +62,7 @@ const SuperAdminDepartmentsPage: React.FC = () => {
 
   const fetchDirectorates = async (token: string | null) => {
     try {
-      const response = await axios.get('http://localhost:8000/directorates/directorates', {
+      const response = await axiosInstance.get('/directorates/directorates', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDirectorates(response.data);
@@ -87,7 +88,7 @@ const SuperAdminDepartmentsPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8000/departments/delete/department/${id}`, {
+      await axiosInstance.delete(`/departments/delete/department/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       notification.success({ message: 'Department deleted successfully' });
@@ -118,8 +119,8 @@ const SuperAdminDepartmentsPage: React.FC = () => {
         return;
       }
 
-      await axios.post(
-        `http://localhost:8000/departments/create/${selectedDirectorate.Id}`,
+      await axiosInstance.post(
+        `/departments/create/${selectedDirectorate.Id}`,
         { departmentName }, 
         {
           headers: {
@@ -146,7 +147,7 @@ const SuperAdminDepartmentsPage: React.FC = () => {
     try {
       if (modalMode === 'edit' && currentDepartment) {
         const values = await form.validateFields();
-        await axios.put(`http://localhost:8000/departments/update/department/${currentDepartment.Id}`, values, {
+        await axiosInstance.put(`/departments/update/department/${currentDepartment.Id}`, values, {
           headers: { Authorization: `Bearer ${token}` }
         });
         notification.success({ message: 'Department updated successfully' });

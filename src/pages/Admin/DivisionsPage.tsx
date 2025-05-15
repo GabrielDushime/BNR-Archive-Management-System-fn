@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, notification, Typography, Popconfirm, Select } from 'antd';
 import { EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 
 interface Division {
   Id: string;
@@ -45,7 +46,7 @@ const DivisionsPage: React.FC = () => {
 
   const fetchDivisions = async (token: string | null) => {
     try {
-      const response = await axios.get('http://localhost:8000/divisions/divisions', {
+      const response = await axiosInstance .get('/divisions/divisions', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDivisions(response.data);
@@ -60,7 +61,7 @@ const DivisionsPage: React.FC = () => {
 
   const fetchDepartments = async (token: string | null) => {
     try {
-      const response = await axios.get('http://localhost:8000/departments/departments', {
+      const response = await axiosInstance .get('/departments/departments', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDepartments(response.data);
@@ -86,7 +87,7 @@ const DivisionsPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8000/divisions/delete/division/${id}`, {
+      await axiosInstance .delete(`/divisions/delete/division/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       notification.success({ message: 'Division deleted successfully' });
@@ -117,8 +118,8 @@ const DivisionsPage: React.FC = () => {
         return;
       }
 
-      await axios.post(
-        `http://localhost:8000/divisions/create/${selectedDepartment.Id}`,
+      await axiosInstance .post(
+        `/divisions/create/${selectedDepartment.Id}`,
         { divisionName },
         {
           headers: {
@@ -145,7 +146,7 @@ const DivisionsPage: React.FC = () => {
     try {
       if (modalMode === 'edit' && currentDivision) {
         const values = await form.validateFields();
-        await axios.put(`http://localhost:8000/divisions/update/division/${currentDivision.Id}`, values, {
+        await axiosInstance .put(`/divisions/update/division/${currentDivision.Id}`, values, {
           headers: { Authorization: `Bearer ${token}` }
         });
         notification.success({ message: 'Division updated successfully' });

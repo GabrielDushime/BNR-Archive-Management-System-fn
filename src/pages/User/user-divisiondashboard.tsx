@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 import { useParams, Link } from 'react-router-dom';
 
 interface Division {
@@ -22,7 +23,7 @@ const UserDashboardDivisionsPage: React.FC = () => {
   useEffect(() => {
     const fetchDivisions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/divisions/department/division/${departmentId}`, {
+        const response = await axiosInstance.get(`/divisions/department/division/${departmentId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -31,8 +32,8 @@ const UserDashboardDivisionsPage: React.FC = () => {
         const divisionsWithTypes = await Promise.all(
           divisionsData.map(async (division: Division) => {
             try {
-              const typeResponse = await axios.get(
-                `http://localhost:8000/types/division/types/${division.Id}`,
+              const typeResponse = await axiosInstance.get(
+                `/types/division/types/${division.Id}`,
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }

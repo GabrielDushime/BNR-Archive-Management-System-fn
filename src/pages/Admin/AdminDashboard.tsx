@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosConfig'; 
 import { useNavigate } from 'react-router-dom';
 import '../../styles/AdminStyles/AdminDashboard.css'; 
 
@@ -30,19 +30,19 @@ const AdminDashboard: React.FC = () => {
           divisionsResponse,
           typesResponse,
         ] = await Promise.all([
-          axios.get('http://localhost:8000/user/users', {
+          axiosInstance.get('/user/users', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8000/directorates/directorates', {
+          axiosInstance.get('/directorates/directorates', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8000/departments/departments', {
+          axiosInstance.get('/departments/departments', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8000/divisions/divisions', {
+          axiosInstance.get('/divisions/divisions', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8000/types/types', {
+          axiosInstance.get('/types/types', {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

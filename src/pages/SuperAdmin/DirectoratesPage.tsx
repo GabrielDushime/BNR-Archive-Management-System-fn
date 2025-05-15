@@ -4,7 +4,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, notification, Typography, Popconfirm } from 'antd';
 import { EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 
 interface Directorate {
   Id: string;
@@ -40,7 +41,7 @@ const SuperAdminDirectoratesPage: React.FC = () => {
 
   const fetchDirectorates = async (token: string | null) => {
     try {
-      const response = await axios.get('http://localhost:8000/directorates/directorates', {
+      const response = await axiosInstance.get('/directorates/directorates', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDirectorates(response.data);
@@ -70,7 +71,7 @@ const SuperAdminDirectoratesPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8000/directorates/delete/directorate/${id}`, {
+      await axiosInstance.delete(`/directorates/delete/directorate/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       notification.success({ message: 'Directorate deleted successfully' });
@@ -88,7 +89,7 @@ const SuperAdminDirectoratesPage: React.FC = () => {
     const token = localStorage.getItem('token');
     try {
       const values = await form.validateFields();
-      await axios.post('http://localhost:8000/directorates/create', values, {
+      await axiosInstance.post('/directorates/create', values, {
         headers: { Authorization: `Bearer ${token}` }
       });
       notification.success({ message: 'Directorate created successfully' });
@@ -104,7 +105,7 @@ const SuperAdminDirectoratesPage: React.FC = () => {
     try {
       if (modalMode === 'edit' && currentDirectorate) {
         const values = await form.validateFields();
-        await axios.put(`http://localhost:8000/directorates/update/directorate/${currentDirectorate.Id}`, values, {
+        await axiosInstance.put(`/directorates/update/directorate/${currentDirectorate.Id}`, values, {
           headers: { Authorization: `Bearer ${token}` }
         });
         notification.success({ message: 'Directorate updated successfully' });

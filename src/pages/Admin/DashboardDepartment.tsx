@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios';
+
+import axiosInstance from '../../utils/axiosConfig'; 
 import { Link } from 'react-router-dom';
 
 interface Department {
@@ -21,7 +22,7 @@ const DashboardDepartmentsPage: React.FC = () => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/departments/departments', {
+        const response = await axiosInstance.get('/departments/departments', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -30,8 +31,8 @@ const DashboardDepartmentsPage: React.FC = () => {
         const departmentsWithDivisions = await Promise.all(
           departmentsData.map(async (department: Department) => {
             try {
-              const divisionResponse = await axios.get(
-                `http://localhost:8000/divisions/department/division/${department.Id}`,
+              const divisionResponse = await axiosInstance.get(
+                `/divisions/department/division/${department.Id}`,
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }

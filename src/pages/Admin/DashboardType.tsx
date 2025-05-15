@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosConfig';  
 
 interface Type {
   Id: string;
@@ -20,7 +20,7 @@ const DashboardTypesPage: React.FC = () => {
   useEffect(() => {
     const fetchTypes = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/types/types', {
+        const response = await axiosInstance.get('/types/types', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -29,8 +29,8 @@ const DashboardTypesPage: React.FC = () => {
         const typesWithDocumentsCount = await Promise.all(
           typesData.map(async (type: Type) => {
             try {
-              const documentsResponse = await axios.get(
-                `http://localhost:8000/documents/type/${type.Id}`,
+              const documentsResponse = await axiosInstance.get(
+                `/documents/type/${type.Id}`,
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }

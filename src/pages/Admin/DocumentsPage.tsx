@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Popconfirm, Modal, Form, Input, Select, Upload, notification } from 'antd';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UploadOutlined,EditOutlined, DownloadOutlined, PlusOutlined } from '@ant-design/icons';
@@ -81,7 +82,7 @@ const DocumentsPage: React.FC = () => {
       try {
         let response;
         if (userRole === 'admin' || userRole === 'user') {
-          response = await axios.get('http://localhost:8000/document/documents', {
+          response = await axiosInstance.get('/document/documents', {
             headers: { Authorization: `Bearer ${token}` }
           });
         }
@@ -99,7 +100,7 @@ const DocumentsPage: React.FC = () => {
 
     const fetchDirectorates = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/directorates/directorates', {
+        const response = await axiosInstance.get('/directorates/directorates', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -116,7 +117,7 @@ const DocumentsPage: React.FC = () => {
 
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/departments/departments', {
+        const response = await axiosInstance.get('/departments/departments', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -132,7 +133,7 @@ const DocumentsPage: React.FC = () => {
     };
     const fetchDivisions = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/divisions/divisions', {
+        const response = await axiosInstance.get('/divisions/divisions', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -148,7 +149,7 @@ const DocumentsPage: React.FC = () => {
     };
     const fetchTypes = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/types/types', {
+        const response = await axiosInstance.get('/types/types', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -205,7 +206,7 @@ const DocumentsPage: React.FC = () => {
 
     try {
       const { docName, docDescription, departmentName } = values;
-      await axios.put(`http://localhost:8000/document/${selectedDocument.Id}`, 
+      await axiosInstance.put(`/document/${selectedDocument.Id}`, 
         { docName, docDescription, departmentName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -226,7 +227,7 @@ const DocumentsPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       console.log(`Deleting document with ID: ${id}`); 
-      await axios.delete(`http://localhost:8000/document/${id}`, {
+      await axiosInstance.delete(`/document/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       notification.success({ message: 'Document deleted successfully' });
@@ -238,7 +239,7 @@ const DocumentsPage: React.FC = () => {
 
   const handleDownload = async (id: string) => {
     try {
-      const response = await axios.get(`http://localhost:8000/document/download/${id}`, {
+      const response = await axiosInstance.get(`/document/download/${id}`, {
         responseType: 'blob',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -273,7 +274,7 @@ const DocumentsPage: React.FC = () => {
   const handleSearch = async () => {
     if (searchTerm.trim() === '') {
       try {
-        const response = await axios.get('http://localhost:8000/document/documents', {
+        const response = await axiosInstance.get('/document/documents', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setDocuments(response.data);
@@ -286,7 +287,7 @@ const DocumentsPage: React.FC = () => {
 
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8000/document/search', {
+      const response = await axiosInstance.get('/document/search', {
         params: { name: searchTerm },
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -324,7 +325,7 @@ useEffect(() => {
     if (searchRefId.trim() === '') {
     
       try {
-        const response = await axios.get('http://localhost:8000/document/documents', {
+        const response = await axiosInstance.get('/document/documents', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setDocuments(response.data);
@@ -337,7 +338,7 @@ useEffect(() => {
 
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8000/document/search/referenceId', {
+      const response = await axiosInstance.get('/document/search/referenceId', {
         params: { referenceId: searchRefId },
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -403,8 +404,8 @@ useEffect(() => {
     fileList.forEach((file) => formData.append('file', file));
   
     try {
-      await axios.post(
-        `http://localhost:8000/document/add/${directorate.Id}/${department.Id}/${division.Id}/${type.Id}`,
+      await axiosInstance.post(
+        `/document/add/${directorate.Id}/${department.Id}/${division.Id}/${type.Id}`,
         formData,
         {
           headers: {

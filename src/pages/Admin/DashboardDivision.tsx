@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosConfig'; 
 import { Link } from 'react-router-dom';
+
 
 interface Division {
   Id: string;
@@ -21,7 +22,7 @@ const DashboardDivisionsPage: React.FC = () => {
   useEffect(() => {
     const fetchDivisions = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/divisions/divisions', {
+        const response = await axiosInstance.get('/divisions/divisions', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -30,8 +31,8 @@ const DashboardDivisionsPage: React.FC = () => {
         const divisionsWithTypes = await Promise.all(
           divisionsData.map(async (division: Division) => {
             try {
-              const typeResponse = await axios.get(
-                `http://localhost:8000/types/division/types/${division.Id}`,
+              const typeResponse = await axiosInstance.get(
+                `/types/division/types/${division.Id}`,
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }

@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, Select, Popconfirm, Typography, notification, Spin } from 'antd';
-import axios from 'axios';
+
+import axiosInstance from '../../utils/axiosConfig';
 import { ColumnsType } from 'antd/es/table';
 import { getTokenFromLocalStorage } from '../../utils/auth';
 
@@ -47,7 +48,7 @@ const UsersPage: React.FC = () => {
 
   const fetchUsers = async (token: string) => {
     try {
-      const response = await axios.get('http://localhost:8000/user/users', {
+      const response = await axiosInstance.get('/user/users', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +62,7 @@ const UsersPage: React.FC = () => {
 
   const fetchDirectorates = async (token: string) => {
     try {
-      const response = await axios.get('http://localhost:8000/directorates/directorates', {
+      const response = await axiosInstance.get('/directorates/directorates', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -98,7 +99,7 @@ const UsersPage: React.FC = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:8000/user/Delete/user/${userId}`, {
+      await axiosInstance.delete(`/user/Delete/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -127,7 +128,7 @@ const UsersPage: React.FC = () => {
       };
 
       try {
-        const response = await axios.put(`http://localhost:8000/user/update/user/${editingUser.Id}`, payload, {
+        const response = await axiosInstance.put(`/user/update/user/${editingUser.Id}`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

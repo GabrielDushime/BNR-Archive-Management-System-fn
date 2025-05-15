@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Select } from 'antd';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,7 +21,7 @@ const Signup: React.FC = () => {
  
     const fetchDirectorates = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/directorates/directorates', {
+        const response = await axiosInstance.get('/directorates/directorates', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -36,7 +37,7 @@ const Signup: React.FC = () => {
 
   const onFinish = async (values: any) => {
     try {
-      const response = await axios.post('http://localhost:8000/user/signup', {
+      const response = await axiosInstance.post('/user/signup', {
         ...values,
         directorateIds: values.directorateIds || [], 
       }, {

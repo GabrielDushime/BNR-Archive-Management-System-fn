@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios';
+import axios from 'axios'; 
+import axiosInstance from '../../utils/axiosConfig';
 import { useParams } from 'react-router-dom';
 
 interface Type {
@@ -23,7 +24,7 @@ const UserDashboardTypesPage: React.FC = () => {
     const fetchTypes = async () => {
       try {
         
-        const response = await axios.get(`http://localhost:8000/types/division/types/${divisionId}`, {
+        const response = await axiosInstance.get(`/types/division/types/${divisionId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -33,8 +34,8 @@ const UserDashboardTypesPage: React.FC = () => {
         const typesWithDocumentsCount = await Promise.all(
           typesData.map(async (type: Type) => {
             try {
-              const documentsResponse = await axios.get(
-                `http://localhost:8000/documents/type/${type.Id}`,
+              const documentsResponse = await axiosInstance.get(
+                `/documents/type/${type.Id}`,
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }
