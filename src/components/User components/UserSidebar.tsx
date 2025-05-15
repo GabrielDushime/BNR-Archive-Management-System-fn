@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
@@ -5,7 +7,7 @@ import {
   DashboardOutlined,
   FileOutlined,
   LogoutOutlined,
-  TeamOutlined,
+  
 } from '@ant-design/icons';
 import Logout from '../Logout';
 import '../../styles/AdminStyles/Sidebar.css';
