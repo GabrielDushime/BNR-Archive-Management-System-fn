@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-
-import axiosInstance from '../../utils/axiosConfig'; 
+import axiosInstance from '../../utils/axiosConfig';
 import { Link } from 'react-router-dom';
 
 interface Department {
@@ -11,23 +10,23 @@ interface Department {
   departmentName: string;
   description?: string;
   divisionsCount?: number;
-  directorateName?: string; 
+  directorateName?: string;
 }
 
 const DashboardDepartmentsPage: React.FC = () => {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const token = localStorage.getItem('token');
-
+  
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
         const response = await axiosInstance.get('/departments/departments', {
           headers: { Authorization: `Bearer ${token}` },
         });
-
+        
         const departmentsData = response.data;
-
+        
         const departmentsWithDivisions = await Promise.all(
           departmentsData.map(async (department: Department) => {
             try {
@@ -50,7 +49,7 @@ const DashboardDepartmentsPage: React.FC = () => {
             }
           })
         );
-
+        
         setDepartments(departmentsWithDivisions);
       } catch (error) {
         console.error('Failed to fetch departments:', error);
@@ -59,32 +58,43 @@ const DashboardDepartmentsPage: React.FC = () => {
         setLoading(false);
       }
     };
-
+    
     fetchDepartments();
   }, [token]);
-
+  
   return (
     <div className="departments-page">
-      <h1 className="text-center text-3xl font-bold mb-6">Departments From All Directorates</h1>
+      <h1 className="page-title">Departments From All Directorates</h1>
       {loading ? (
-        <Spin size="large" />
+        <div className="loading-container">
+          <Spin size="large" />
+        </div>
       ) : (
         <Row gutter={[16, 16]}>
           {departments.map((department) => (
-            <Col key={department.Id} span={8}>
+            <Col 
+              key={department.Id} 
+              xs={24}     /* Full width on extra small screens (mobile) */
+              sm={12}     /* Half width on small screens (tablets) */
+              md={8}      /* One-third width on medium screens */
+              lg={8}      /* One-third width on large screens */
+              xl={6}      /* One-fourth width on extra large screens */
+            >
               <Card
                 title={department.departmentName}
                 hoverable
+                className="department-card"
                 style={{ backgroundColor: '#eedc82', color: '#753918' }}
               >
                 <p>Total Number of Divisions: {department.divisionsCount}</p>
-                
                 {department.directorateName && <p>Directorate: {department.directorateName}</p>}
                 <Link
-                 style={{ color: 'black', textDecoration: 'none', fontWeight:'bold' }} 
-                 to={`/divisions/${department.Id}`}>
+                  className="view-divisions-link"
+                  style={{ color: 'black', textDecoration: 'none', fontWeight:'bold' }}
+                  to={`/divisions/${department.Id}`}
+                >
                   View Divisions
-                  </Link>
+                </Link>
               </Card>
             </Col>
           ))}

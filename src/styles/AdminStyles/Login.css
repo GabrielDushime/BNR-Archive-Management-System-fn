@@ -5,30 +5,35 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin-left: 800px;
-  margin-top: -100px;
-}
-.login-page{
-  display: flex;
-}
-.login-page img{
-  position: absolute;
-  left:0px;
-  width:800px;
- height: 530px;
-  top:80px;
-  border-radius: 0px;
-}
-.login-form {
-  width: 400px;
-
+  min-height: 100vh;
+  width: 100%;
   padding: 20px;
+  box-sizing: border-box;
+}
+
+.login-page {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  flex-direction: row;
+}
+
+.login-page img {
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px 0 0 8px;
+  position: relative;
+  display: block;
+}
+
+.login-form {
+  width: 50%;
+  padding: 30px;
   background: white;
-  border-radius: 8px;
+  border-radius: 0 8px 8px 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-top:0px;
-  
 }
 
 .login-button {
@@ -38,22 +43,20 @@
   color: #ffffff !important;
   font-weight: bold;
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 18px;
   transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
   background-color: #eedc82 !important;
-    color: #753918 !important;
-
-
+  color: #753918 !important;
 }
 
 .login-container h1 {
-  font-size: 30px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
 }
-
 
 .login-form .ant-input,
 .login-form .ant-input-password {
@@ -63,4 +66,67 @@
 .login-form .ant-input:hover,
 .login-form .ant-input-password:hover {
   border-color: #753918 !important;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .login-page {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+    max-width: 500px;
+  }
+  
+  .login-page img {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    height: 250px;
+  }
+  
+  .login-form {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-container {
+    padding: 15px;
+  }
+  
+  .login-page {
+    max-width: 100%;
+  }
+  
+  .login-form {
+    padding: 20px;
+  }
+  
+  .login-container h1 {
+    font-size: 24px;
+  }
+  
+  .login-button {
+    font-size: 16px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 320px) {
+  .login-form {
+    padding: 15px;
+  }
+  
+  .login-container h1 {
+    font-size: 22px;
+  }
 }

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios'; 
+
 import axiosInstance from '../../utils/axiosConfig';
 import { Link } from 'react-router-dom';
 
@@ -17,14 +17,14 @@ const DashboardDirectoratesPage: React.FC = () => {
   const [directorates, setDirectorates] = useState<Directorate[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const token = localStorage.getItem('token');
-
+  
   useEffect(() => {
     const fetchDirectorates = async () => {
       try {
         const response = await axiosInstance.get('/directorates/user', {
           headers: { Authorization: `Bearer ${token}` },
         });
-
+        
         const directoratesData = response.data;
         
         const directoratesWithDepartments = await Promise.all(
@@ -49,7 +49,7 @@ const DashboardDirectoratesPage: React.FC = () => {
             }
           })
         );
-
+        
         setDirectorates(directoratesWithDepartments);
       } catch (error) {
         console.error('Failed to fetch directorates:', error);
@@ -58,32 +58,39 @@ const DashboardDirectoratesPage: React.FC = () => {
         setLoading(false);
       }
     };
-
+    
     fetchDirectorates();
   }, [token]);
-
+  
   return (
     <div className="directorates-page">
-      <h1 className="text-center text-3xl font-bold mb-6">Directorates</h1>
+      <h1 className="text-center text-3xl font-bold mb-6">User Dashboard</h1>
       {loading ? (
-        <Spin size="large" />
+        <div className="loading-spinner">
+          <Spin size="large" />
+        </div>
       ) : (
-        <Row gutter={[10, 10]}>
+        <Row gutter={[16, 16]}>
           {directorates.map((directorate) => (
-            <Col key={directorate.Id} span={8}>
+            <Col key={directorate.Id} xs={24} sm={12} lg={8}>
               <Card
                 title={directorate.directorateName}
                 hoverable
                 style={{ backgroundColor: '#eedc82', color: '#753918' }}
+                className="directorate-card"
               >
                 <p>Total Number of Departments: {directorate.departmentsCount}</p>
-                {directorate.description && <p>Description: {directorate.description}</p>}
-                <Link
-                 to={`/departments/${directorate.Id}`}
-                 style={{ color: 'black', textDecoration: 'none', fontWeight:'bold' }} 
-                >
-                 View Departments
-               </Link>
+                {directorate.description && (
+                  <p className="description">Description: {directorate.description}</p>
+                )}
+                <div className="card-footer">
+                  <Link
+                    to={`/departments/${directorate.Id}`}
+                    className="view-departments-link"
+                  >
+                    View Departments
+                  </Link>
+                </div>
               </Card>
             </Col>
           ))}

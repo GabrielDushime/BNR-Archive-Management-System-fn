@@ -1,35 +1,189 @@
 
-  
+/* DocumentsPage.css - Responsive Styles */
 
-  
-  .custom-icon:hover {
-    color: #753918 !important;
-  }
+/* Base Styles - Keeping your original style */
+.custom-icon:hover {
+  color: #753918 !important;
+}
 
-  
+.search-bar2:hover, .search-bar2 .ant-input:hover {
+  border-color: #753918 !important;
+}
 
-  .search-bar2 :hover{
-    border-color: #753918 !important;
+.search-bar2:focus, .search-bar2 .ant-input:focus {
+  border-color: #753918 !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(117, 57, 24, 0.2);
+}
+
+/* Container for search bars */
+.search-add-container2 {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  padding-right: 20px;
+  min-height: 40px;
+  width: 100%;
+}
+
+/* Original positioning for search bars */
+.search-bar2 {
+  position: absolute;
+  right: 100px !important;
+  float: right;
+  margin-top: 0px;
+  width: 240px;
+}
+
+.search-bar1 {
+  position: absolute;
+  right: 300px !important;
+  float: right;
+  margin-top: 0px;
+  width: 300px;
+}
+
+.title {
+  margin-top: 60px !important;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Large screens adjustments */
+@media screen and (max-width: 1200px) {
+  .search-bar1 {
+    right: 260px !important;
+    width: 250px;
   }
-  .search-bar2{
-    position: absolute;
-    right: 100px !important;
-    float: right;
-    margin-top:0px;
-    width: 240px;
-    
-   
+  
+  .search-bar2 {
+    right: 20px !important;
+    width: 220px;
   }
-  .search-bar2:focus {
-    border-color: #753918!important;
-    outline: none; 
+}
+
+/* Medium screens */
+@media screen and (max-width: 992px) {
+  .search-add-container2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    height: auto;
+    margin-bottom: 80px;
+    padding-right: 10px;
   }
-  .search-bar1{
-    position: absolute;
-    right: 300px !important;
-    float: right;
-    margin-top:0px;
-    width: 300px;
-    
-   
+  
+  .search-bar1, .search-bar2 {
+    position: relative;
+    margin: 5px;
+    width: calc(50% - 20px);
+    right: auto !important;
   }
+  
+  .title {
+    margin-top: 90px !important;
+  }
+}
+
+/* Small screens */
+@media screen and (max-width: 768px) {
+  .search-add-container2 {
+    margin-bottom: 100px;
+    padding-right: 5px;
+  }
+  
+  .search-bar1, .search-bar2 {
+    width: calc(100% - 10px);
+    max-width: none;
+    margin: 5px;
+  }
+  
+  /* Make table scrollable horizontally on small screens */
+  .ant-table-wrapper {
+    overflow-x: auto;
+  }
+  
+  /* Adjust modal width for small screens */
+  .ant-modal {
+    max-width: 95% !important;
+    margin: 10px auto !important;
+  }
+  
+  /* Ensure all buttons are visible */
+  .ant-table-cell span {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .ant-table-cell span button {
+    margin: 2px !important;
+  }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 576px) {
+  .search-add-container2 {
+    margin-bottom: 110px;
+  }
+  
+  /* Ensure action buttons are always visible and usable */
+  .ant-table-cell span {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .ant-table-cell span button {
+    margin: 3px !important;
+    min-width: 32px;
+  }
+  
+  /* Make forms more compact but fully visible */
+  .form .ant-form-item {
+    margin-bottom: 10px;
+  }
+}
+
+/* Make sure all page elements remain visible across devices */
+.ant-table {
+  width: 100%;
+  min-width: 100%;
+}
+
+/* Fix button spacing in all screen sizes */
+.ant-table-cell span button {
+  margin: 0 5px !important;
+}
+
+/* Ensure upload button fits in small screens */
+.ant-upload-list {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Fix select dropdown widths */
+.ant-select {
+  width: 100%;
+}
+
+/* Adjust title responsiveness */
+h2.title {
+  font-size: calc(1.2rem + 0.5vw);
+  word-wrap: break-word;
+}
+
+/* Ensure input focus states maintain brand color */
+.ant-input:focus, .ant-input-focused {
+  border-color: #753918 !important;
+  box-shadow: 0 0 0 2px rgba(117, 57, 24, 0.2) !important;
+}
+
+/* Make form controls more touch-friendly on mobile */
+@media screen and (max-width: 576px) {
+  .ant-input, .ant-select-selector, .ant-btn {
+    min-height: 36px;
+  }
+}

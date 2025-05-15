@@ -79,10 +79,12 @@ const AdminDashboard: React.FC = () => {
     <div className="admin-dashboard">
       <h1>Admin Dashboard</h1>
       {loading ? (
-        <Spin size="large" />
+        <div className="loading-spinner">
+          <Spin size="large" />
+        </div>
       ) : (
         <Row gutter={[16, 16]}>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Auth"
               style={{ backgroundColor: '#DBA628' }}
@@ -92,7 +94,7 @@ const AdminDashboard: React.FC = () => {
               <p>Total Number of Users: {data?.usersCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Directorates"
               style={{ backgroundColor: '#753918' }}
@@ -102,7 +104,7 @@ const AdminDashboard: React.FC = () => {
               <p>Total Number of Directorates: {data?.directoratesCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Departments"
               style={{ backgroundColor: '#eedc82' }}
@@ -112,7 +114,7 @@ const AdminDashboard: React.FC = () => {
               <p>Total Number of Departments: {data?.departmentsCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Divisions"
               style={{ backgroundColor: '#AB892C' }}
@@ -122,7 +124,7 @@ const AdminDashboard: React.FC = () => {
               <p>Total Number of Divisions: {data?.divisionsCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Types"
               style={{ backgroundColor: '#89724E' }}

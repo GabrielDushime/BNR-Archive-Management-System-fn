@@ -1,16 +1,83 @@
 .departments-page {
-    padding: 20px;
+  padding: 20px;
+  max-width: 100%;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.75rem;
+    margin-bottom: 15px;
   }
   
-  .departments-page h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  .departments-page {
+    padding: 15px;
   }
-  .ant-input:hover,
-  .ant-input-Role,
-  .department:hover {
-    border-color: #753918 !important;
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
   }
-
-
   
+  .departments-page {
+    padding: 10px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.department-card {
+  height: 100%;
+  transition: transform 0.3s;
+}
+
+.department-card:hover {
+  transform: translateY(-5px);
+}
+
+.view-divisions-link {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s;
+}
+
+.view-divisions-link:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Preserving original styles */
+.ant-input:hover,
+.ant-input-Role,
+.department:hover {
+  border-color: #753918 !important;
+}
+
+/* Responsive card adjustments */
+@media (max-width: 576px) {
+  .ant-card-head-title {
+    font-size: 16px;
+    padding: 12px 0;
+  }
+  
+  .ant-card-body {
+    padding: 15px;
+  }
+}

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin, message } from 'antd';
-import axios from 'axios'; 
+ 
 import axiosInstance from '../../utils/axiosConfig';
 import { useParams } from 'react-router-dom';
 

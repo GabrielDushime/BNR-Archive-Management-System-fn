@@ -12,7 +12,7 @@ import {
 import Logout from '../Logout';
 import '../../styles/AdminStyles/Sidebar.css';
 
-const AdminSidebar: React.FC = () => {
+const UserSidebar: React.FC = () => {
   return (
     <div className="sidebar">
       <Menu
@@ -44,4 +44,4 @@ const AdminSidebar: React.FC = () => {
   );
 };
 
-export default AdminSidebar;
+export default UserSidebar;

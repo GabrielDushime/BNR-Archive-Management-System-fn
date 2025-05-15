@@ -3,67 +3,148 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80vh; 
-  margin: 0 auto; 
-  padding: 40px 0; 
+  min-height: 80vh;
+  margin: 0 auto;
+  padding: 40px 20px;
   margin-top: -50px;
+  width: 100%;
+  box-sizing: border-box;
 }
-  
-  .signup-form {
-    width: 500px; 
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(128, 0, 0, 0.5); 
-    
-  }
-  
-  .signup-button {
-    width: 100% !important;
-    height: 40px;
-    background-color: #f8ecd2;
-    color: #753918;
-    font-weight: bold;
-    font-size: 20px;
-    border: none; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
-  }
-  .signup-button {
-    width: 100%;
-    height: 40px;
-    background-color: #753918 !important; 
-    color: #ffffff !important;
-    font-weight: bold;
-    font-weight: bold;
-    font-size: 20px;
-    border: none; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
-  
-  }
-  
-  .signup-button:hover {
-    background-color: #eedc82 !important;
-    color: #753918 !important;
-  }
-  
- 
 
-  
-  h1 {
-    color:#753918;
-    font-weight: bold;
-    font-size: 20px;
-  }
-  .signup-form .ant-input,
-  .signup-form .ant-input-Role,
+.signup-form {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(128, 0, 0, 0.5);
+}
+
+.signup-button {
+  width: 100% !important;
+  height: 40px;
+  background-color: #753918 !important;
+  color: #ffffff !important;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #eedc82 !important;
+  color: #753918 !important;
+}
+
+h1 {
+  color: #753918;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup-form .ant-input,
+.signup-form .ant-input-Role,
 .signup-form .ant-input-password {
   transition: border-color 0.3s ease;
 }
 
 .signup-form .ant-input:hover,
-.signup-form .ant-input-Role,
+.signup-form .ant-input-Role:hover,
 .signup-form .ant-input-password:hover {
   border-color: #753918 !important;
+}
+
+/* Fix for button class name in your React component */
+.login-button {
+  width: 100% !important;
+  height: 40px;
+  background-color: #753918 !important;
+  color: #ffffff !important;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #eedc82 !important;
+  color: #753918 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .signup-container {
+    padding: 30px 15px;
+    margin-top: -30px;
+  }
+  
+  .signup-form {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 20px 10px;
+    margin-top: -20px;
+  }
+  
+  .signup-form {
+    padding: 10px;
+  }
+  
+  .signup-button,
+  .login-button {
+    font-size: 16px;
+    height: 38px;
+  }
+  
+  h1 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  /* Adjust input sizes for mobile */
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+}
+
+/* Handle sidebar layout responsiveness */
+@media (max-width: 992px) {
+  .signup-container {
+    margin-left: 0;
+    padding-top: 60px; /* Add space for potential mobile menu */
+  }
+}
+
+/* Make Select dropdown responsive */
+.ant-select-selector {
+  width: 100% !important;
+}
+
+/* Improve form field spacing on small screens */
+.ant-form-item-label {
+  padding-bottom: 4px;
+}
+
+/* Fix for Ant Design Select components on mobile */
+@media (max-width: 480px) {
+  .ant-select-selection-overflow {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .ant-select-selection-item {
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
 }

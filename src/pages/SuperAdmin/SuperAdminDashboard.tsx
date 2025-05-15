@@ -78,57 +78,64 @@ const SuperAdminDashboard: React.FC = () => {
 
   return (
     <div className="admin-dashboard">
-      <h1> Super-Admin Dashboard</h1>
+      <h1>Super-Admin Dashboard</h1>
       {loading ? (
-        <Spin size="large" />
+        <div className="loading-spinner">
+          <Spin size="large" />
+        </div>
       ) : (
         <Row gutter={[16, 16]}>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Auth"
               style={{ backgroundColor: '#DBA628' }}
               onClick={() => handleCardClick('/super-admin/users')}
               hoverable
+              className="dashboard-card"
             >
               <p>Total Number of Users: {data?.usersCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Directorates"
               style={{ backgroundColor: '#753918' }}
-              onClick={() => handleCardClick('/directorates')}
+              onClick={() => handleCardClick('/super-admin/directorates')}
               hoverable
+              className="dashboard-card"
             >
               <p>Total Number of Directorates: {data?.directoratesCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Departments"
               style={{ backgroundColor: '#eedc82' }}
-              onClick={() => handleCardClick('/departments')}
+              onClick={() => handleCardClick('/super-admin/departments')}
               hoverable
+              className="dashboard-card"
             >
               <p>Total Number of Departments: {data?.departmentsCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Divisions"
               style={{ backgroundColor: '#AB892C' }}
-              onClick={() => handleCardClick('/divisions')}
+              onClick={() => handleCardClick('/super-admin/divisions')}
               hoverable
+              className="dashboard-card"
             >
               <p>Total Number of Divisions: {data?.divisionsCount}</p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} lg={8}>
             <Card
               title="Types"
               style={{ backgroundColor: '#89724E' }}
-              onClick={() => handleCardClick('/types')}
+              onClick={() => handleCardClick('/super-admin/types')}
               hoverable
+              className="dashboard-card"
             >
               <p>Total Number of Types: {data?.typesCount}</p>
             </Card>
