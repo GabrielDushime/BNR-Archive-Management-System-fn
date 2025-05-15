@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export const API_BASE_URL = 'https://bnr-archive-management-system.onrender.com';
 
